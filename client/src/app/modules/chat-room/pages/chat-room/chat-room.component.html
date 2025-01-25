@@ -1,0 +1,16 @@
+<div class="chat-room">
+    <h2>Chat Room {{ chatRoomId }}</h2>
+    <div class="messages">
+      <div *ngFor="let message of messages" class="message">
+        <strong>{{ message.senderNickname }} - {{ message.createdAt }}:</strong> {{ message.content }}
+      </div>
+    </div>
+    <div class="message-input">
+      <input
+        type="text"
+        [(ngModel)]="newMessage"
+        placeholder="Enter your message"
+      />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+</div>

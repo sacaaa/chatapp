@@ -1,0 +1,8 @@
+<div class="chat-room-list">
+    <h2>Select a Chat Room</h2>
+    <ul>
+      <li *ngFor="let room of chatRooms">
+        <a href="/chatrooms/{{ room.id }}">{{ room.name }}</a>
+      </li>
+    </ul>
+</div>

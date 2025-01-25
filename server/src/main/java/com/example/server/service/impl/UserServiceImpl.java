@@ -1,7 +1,7 @@
 package com.example.server.service.impl;
 
 import com.example.server.model.User;
-import com.example.server.model.data.Result;
+import com.example.server.data.Result;
 import com.example.server.model.dto.UserAuthDto;
 import com.example.server.model.dto.UserDto;
 import com.example.server.repository.UserRepository;

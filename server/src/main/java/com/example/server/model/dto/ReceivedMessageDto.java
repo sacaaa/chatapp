@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageSenderDto {
+public class ReceivedMessageDto {
 
     private Long id;
-
-    private String nickname;
-
-    private String email;
+    private String content;
+    private Long chatRoomId;
+    private String senderNickname;
+    private LocalDateTime createdAt;
 
 }

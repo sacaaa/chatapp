@@ -1,10 +1,17 @@
 package com.example.server.service;
 
-import com.example.server.model.data.Result;
-import com.example.server.model.dto.MessageSenderDto;
+import com.example.server.model.dto.ChatRoomDto;
+import com.example.server.model.dto.MessageDto;
+import com.example.server.model.dto.ReceivedMessageDto;
 
-public interface ChatService extends DtoService<MessageSenderDto> {
+import java.util.List;
 
-    Result<Void> sendMessage(Long chatroomId, Long userId, String message);
+public interface ChatService {
+
+    void sendMessageToChatRoom(MessageDto messageDto);
+
+    List<ReceivedMessageDto> receiveMessageFromChatRoom(Long chatRoomId);
+
+    List<ChatRoomDto> getChatRooms();
 
 }

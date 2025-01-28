@@ -1,5 +1,6 @@
 package com.example.server.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,11 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "avatarId", nullable = false)
+    private int avatarId;
+
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("sender")
     private List<Message> messages;
 
     @Column(

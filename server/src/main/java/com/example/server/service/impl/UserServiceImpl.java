@@ -68,9 +68,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<UserDto> findById(Long id) {
         var result = userRepository.findById(id);
-        return result
-                .map(this::convertToDto)
-                .map(Result::success)
+        var userDto = result.map(this::convertToDto);
+        userDto.ifPresent(dto -> dto.setSentMessages(getSentMessageCount(id)));
+        return userDto.map(Result::success)
                 .orElseGet(() -> Result.failure("User not found"));
     }
 
@@ -85,6 +85,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return Result.success(jwtService.generateToken(user));
+    }
+
+    private Long getSentMessageCount(Long id) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return (long) user.getMessages().size();
     }
 
 }

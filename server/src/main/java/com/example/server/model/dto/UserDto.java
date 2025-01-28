@@ -15,8 +15,10 @@ public class UserDto {
     private Long id;
     private String nickname;
     private String email;
+    private int avatarId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<MessageDto> messages;
+    private Long sentMessages;
 
 }

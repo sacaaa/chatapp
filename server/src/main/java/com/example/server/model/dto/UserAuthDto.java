@@ -11,6 +11,7 @@ public class UserAuthDto {
 
     private String nickname;
     private String email;
+    private int avatarId;
     private String password;
 
 }

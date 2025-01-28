@@ -11,12 +11,14 @@ import { ChatService } from '../../../../core/services/chat.service';
 })
 export class ChatRoomListComponent {
   chatRooms: ChatRoom[] = [];
+  isLoaded: boolean = false;
 
   constructor(private router: Router, private chatService: ChatService) {}
 
   async ngOnInit(): Promise<void> {
     try {
       this.chatRooms = await this.chatService.getChatRooms();
+      this.isLoaded = true;
     } catch (error) {
       console.error('Failed to fetch chat rooms:', error);
     }

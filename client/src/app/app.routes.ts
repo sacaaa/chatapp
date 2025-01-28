@@ -8,11 +8,15 @@ import { RegisterComponent } from './modules/auth/pages/register/register.compon
 import { ProfileComponent } from './modules/profile/pages/profile/profile.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'chatrooms', pathMatch: 'full' },
-  { path: 'chatrooms', component: ChatRoomListComponent },
-  { path: 'chatrooms/:id', component: ChatRoomComponent, canActivate: [authGuard, chatRoomGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
-  { path: '**', redirectTo: '' },
+    { path: '', redirectTo: 'chatrooms', pathMatch: 'full' },
+    { path: 'chatrooms', component: ChatRoomListComponent },
+    {
+        path: 'chatrooms/:id',
+        component: ChatRoomComponent,
+        canActivate: [authGuard, chatRoomGuard],
+    },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+    { path: '**', redirectTo: '' },
 ];

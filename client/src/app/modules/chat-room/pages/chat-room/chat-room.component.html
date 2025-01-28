@@ -1,67 +1,84 @@
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
-  <ng-container *ngIf="isLoaded; else loading">
-    <h2 class="font-bold text-2xl sm:text-3xl md:pt-24 lg:text-4xl text-gray-800 mb-6 text-center">
-      {{ chatRoom.name }}
-    </h2>
+<div
+    class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4"
+>
+    <ng-container *ngIf="isLoaded; else loading">
+        <h2
+            class="font-bold text-2xl sm:text-3xl md:pt-24 lg:text-4xl text-gray-800 mb-6 text-center"
+        >
+            {{ chatRoom.name }}
+        </h2>
 
-    <div
-      #messagesContainer
-      class="messages w-full max-w-sm sm:max-w-md lg:max-w-2xl h-96 sm:h-[36rem] overflow-y-auto bg-white border border-gray-300 rounded-lg p-4 flex flex-col gap-4 shadow-md"
-    >
-      <div
-        *ngIf="!messages || messages.length === 0"
-        class="text-gray-500 text-sm sm:text-base text-center absolute inset-0 flex items-center justify-center pointer-events-none"
-      >
-        There are no messages yet.
-      </div>
+        <div
+            #messagesContainer
+            class="messages w-full max-w-sm sm:max-w-md lg:max-w-2xl h-96 sm:h-[36rem] overflow-y-auto bg-white border border-gray-300 rounded-lg p-4 flex flex-col gap-4 shadow-md"
+        >
+            <div
+                *ngIf="!messages || messages.length === 0"
+                class="text-gray-500 text-sm sm:text-base text-center absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
+                There are no messages yet.
+            </div>
 
-      <div
-        *ngFor="let message of messages"
-        [ngClass]="{
-          'self-end bg-blue-100': message.senderId === currentUserId,
-          'self-start bg-gray-100': message.senderId !== currentUserId
-        }"
-        class="message flex items-start gap-4 p-3 rounded-lg shadow-sm"
-      >
-        <img
-          *ngIf="message.senderId !== currentUserId"
-          [src]="'assets/images/avatars/' + message.senderAvatarId + '.webp'"
-          alt="Avatar"
-          class="w-10 h-10 rounded-full flex-shrink-0"
-        />
+            <div
+                *ngFor="let message of messages"
+                [ngClass]="{
+                    'self-end bg-blue-100': message.senderId === currentUserId,
+                    'self-start bg-gray-100':
+                        message.senderId !== currentUserId,
+                }"
+                class="message flex items-start gap-4 p-3 rounded-lg shadow-sm"
+            >
+                <img
+                    *ngIf="message.senderId !== currentUserId"
+                    [src]="
+                        'assets/images/avatars/' +
+                        message.senderAvatarId +
+                        '.webp'
+                    "
+                    alt="Avatar"
+                    class="w-10 h-10 rounded-full flex-shrink-0"
+                />
 
-        <div class="flex flex-col w-full overflow-hidden">
-          <div class="text-sm sm:text-base font-medium w-full truncate">
-            {{ message.senderNickname }} -
-            <span class="text-gray-500">{{ message.createdAt }}</span>
-          </div>
-          <div class="text-sm sm:text-base text-gray-800 break-all w-full">
-            {{ message.content }}
-          </div>
+                <div class="flex flex-col w-full overflow-hidden">
+                    <div
+                        class="text-sm sm:text-base font-medium w-full truncate"
+                    >
+                        {{ message.senderNickname }} -
+                        <span class="text-gray-500">{{
+                            message.createdAt
+                        }}</span>
+                    </div>
+                    <div
+                        class="text-sm sm:text-base text-gray-800 break-all w-full"
+                    >
+                        {{ message.content }}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="message-input mt-6 flex items-center gap-2 w-full max-w-sm sm:max-w-md lg:max-w-2xl">
-      <input
-        type="text"
-        [(ngModel)]="newMessage"
-        (keydown.enter)="sendMessage()"
-        placeholder="Enter your message"
-        class="flex-grow px-4 py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button
-        (click)="sendMessage()"
-        class="px-4 py-3 text-sm sm:text-base bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-      >
-        Send
-      </button>
-    </div>
-  </ng-container>
+        <div
+            class="message-input mt-6 flex items-center gap-2 w-full max-w-sm sm:max-w-md lg:max-w-2xl"
+        >
+            <input
+                type="text"
+                [(ngModel)]="newMessage"
+                (keydown.enter)="sendMessage()"
+                placeholder="Enter your message"
+                class="flex-grow px-4 py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+                (click)="sendMessage()"
+                class="px-4 py-3 text-sm sm:text-base bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+                Send
+            </button>
+        </div>
+    </ng-container>
 
-  <ng-template #loading>
-    <div class="flex items-center justify-center h-screen">
-      <p class="text-gray-500 text-lg">Loading...</p>
-    </div>
-  </ng-template>
+    <ng-template #loading>
+        <div class="flex items-center justify-center h-screen">
+            <p class="text-gray-500 text-lg">Loading...</p>
+        </div>
+    </ng-template>
 </div>

@@ -6,15 +6,13 @@ import { AuthService } from '../../../core/services/auth.service';
 @Component({
     selector: 'app-navbar',
     imports: [CommonModule],
-    templateUrl: './navbar.component.html'
+    templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
     menuOpen = false;
     isLoggedIn: boolean;
 
-    menuItems = [
-        { label: 'Rooms', path: 'chatrooms', requiresLogin: false },
-    ];
+    menuItems = [{ label: 'Rooms', path: 'chatrooms', requiresLogin: false }];
 
     ctaItems = [
         {

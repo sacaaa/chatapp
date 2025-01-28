@@ -1,28 +1,32 @@
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-  <ng-container *ngIf="isLoaded; else loading">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 pt-24">Select a Chat Room</h2>
+    <ng-container *ngIf="isLoaded; else loading">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 pt-24">
+            Select a Chat Room
+        </h2>
 
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl w-full px-4">
-      <li
-        *ngFor="let room of chatRooms"
-        class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl"
-      >
-        <a
-          href="/chatrooms/{{ room.id }}"
-          class="block text-lg font-semibold text-blue-600 hover:underline"
+        <ul
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl w-full px-4"
         >
-          {{ room.name }}
-        </a>
-        <p class="text-sm text-gray-500 mt-2">
-          {{ room.description }}
-        </p>
-      </li>
-    </ul>
-  </ng-container>
+            <li
+                *ngFor="let room of chatRooms"
+                class="bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl"
+            >
+                <a
+                    href="/chatrooms/{{ room.id }}"
+                    class="block text-lg font-semibold text-blue-600 hover:underline"
+                >
+                    {{ room.name }}
+                </a>
+                <p class="text-sm text-gray-500 mt-2">
+                    {{ room.description }}
+                </p>
+            </li>
+        </ul>
+    </ng-container>
 
-  <ng-template #loading>
-    <div class="flex items-center justify-center h-screen">
-      <p class="text-gray-500 text-lg">Loading...</p>
-    </div>
-  </ng-template>
+    <ng-template #loading>
+        <div class="flex items-center justify-center h-screen">
+            <p class="text-gray-500 text-lg">Loading...</p>
+        </div>
+    </ng-template>
 </div>

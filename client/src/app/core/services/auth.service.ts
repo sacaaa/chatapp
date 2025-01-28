@@ -38,8 +38,18 @@ export class AuthService {
         });
     }
 
-    register(email: string, nickname: string, avatarId: number, password: string): Observable<any> {
-        return this.http.post(`${this.baseUrl}/register`, { email, nickname, avatarId, password });
+    register(
+        email: string,
+        nickname: string,
+        avatarId: number,
+        password: string,
+    ): Observable<any> {
+        return this.http.post(`${this.baseUrl}/register`, {
+            email,
+            nickname,
+            avatarId,
+            password,
+        });
     }
 
     logout(): void {

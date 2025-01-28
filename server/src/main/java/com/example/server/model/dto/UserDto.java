@@ -18,7 +18,6 @@ public class UserDto {
     private int avatarId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<MessageDto> messages;
     private Long sentMessages;
 
 }

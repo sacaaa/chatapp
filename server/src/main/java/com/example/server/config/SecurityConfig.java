@@ -20,6 +20,7 @@ public class SecurityConfig {
 
     private final String[] allowedPaths = {
         "/api/auth/**",
+        "/api/chat/chat-rooms",
         "/h2-console/**",
         "/ws/**"
     };

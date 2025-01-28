@@ -43,6 +43,11 @@ public class Initializer {
                 new ChatRoom(null, "CodeCamp", "Share programming tips and discuss software development",
                         null, null, null)
         ));
+
+        userRepository.saveAll(List.of(
+                new User(null, "user", "asd@gmail.com",
+                        Encrypt.encryptSha256(Encrypt.encryptSha256("password")), 1, null, null, null)
+        ));
     }
 
 }

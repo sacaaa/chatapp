@@ -37,4 +37,12 @@ public class ChatController {
         return ResponseEntity.ok(chatService.getChatRooms());
     }
 
+    @GetMapping("/chat-rooms/{chatRoomId}")
+    public ResponseEntity<ChatRoomDto> getChatRoom(@PathVariable Long chatRoomId) {
+        var result = chatService.getChatRoom(chatRoomId);
+        return result.isSuccess()
+                ? ResponseEntity.ok(result.getData())
+                : ResponseEntity.notFound().build();
+    }
+
 }

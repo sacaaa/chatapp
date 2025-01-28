@@ -1,5 +1,6 @@
 package com.example.server.service.impl;
 
+import com.example.server.data.Result;
 import com.example.server.kafka.KafkaProducer;
 import com.example.server.model.Message;
 import com.example.server.model.dto.ChatRoomDto;
@@ -64,6 +65,19 @@ public class ChatServiceImpl implements ChatService {
                     return chatRoomDto;
                 })
                 .toList();
+    }
+
+    @Override
+    public Result<ChatRoomDto> getChatRoom(Long chatRoomId) {
+        return chatRoomRepository.findById(chatRoomId)
+                .map(chatRoom -> {
+                    var chatRoomDto = new ChatRoomDto();
+                    chatRoomDto.setId(chatRoom.getId());
+                    chatRoomDto.setName(chatRoom.getName());
+                    chatRoomDto.setDescription(chatRoom.getDescription());
+                    return Result.success(chatRoomDto);
+                })
+                .orElseGet(() -> Result.failure("Chat room not found"));
     }
 
     private ReceivedMessageDto convertToReceivedMessageDto(Message message) {

@@ -14,6 +14,7 @@ import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -35,11 +36,13 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "chat_room_id", nullable = false)
     @JsonBackReference("messages")
+    @ToString.Exclude
     private ChatRoom chatRoom;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
     @JsonBackReference("sender")
+    @ToString.Exclude
     private User sender;
 
     @Column(

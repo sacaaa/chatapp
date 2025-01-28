@@ -18,7 +18,7 @@ export class ChatService {
 
     constructor(
         private webSocketService: WebSocketService,
-        private http: HttpClient,
+        private http: HttpClient
     ) {}
 
     async joinChatRoom(chatRoomId: number): Promise<void> {

@@ -15,6 +15,8 @@ This is a real-time chat application where users can register, log in, and commu
 - **Backend**:
   - Built with Java Spring Boot, leveraging Kafka for asynchronous processing.
 
+![Chat Application Screenshot](assets/images/chatapp_1.png)
+
 ---
 
 ## Technologies Used
@@ -58,3 +60,5 @@ This is a real-time chat application where users can register, log in, and commu
 1. Register a new account or log in with existing credentials.
 2. Browse the list of chat rooms and join one to start chatting.
 3. Messages are exchanged in real-time with other users in the same chat room.
+
+![Chat Application Screenshot](assets/images/chatapp_2.png)

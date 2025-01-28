@@ -1,0 +1,88 @@
+<nav
+    class="w-full bg-slate-100 text-black py-4 sm:py-6 fixed top-0 left-0 shadow-md z-50"
+>
+    <div class="relative flex justify-between items-center px-6 md:px-20">
+        <a href="/" class="text-xl font-bold">CHAT</a>
+
+        <ul
+            class="hidden md:flex absolute inset-x-60 justify-center items-center space-x-8"
+        >
+            <li *ngFor="let menu of getVisibleMenuItems()" class="text-center">
+                <a
+                    href="/{{ menu.path }}"
+                    class="block text-gray-950 hover:text-gray-600 duration-200"
+                    >{{ menu.label }}</a
+                >
+            </li>
+        </ul>
+
+        <ul class="hidden md:flex md:space-x-5">
+            <li *ngFor="let cta of getVisibleCTAItems()" class="text-center">
+                <ng-container *ngIf="cta.action; else link">
+                    <button
+                        (click)="cta.action()"
+                        class="block text-gray-950 hover:text-gray-600 duration-200"
+                    >
+                        {{ cta.label }}
+                    </button>
+                </ng-container>
+                <ng-template #link>
+                    <a
+                        href="{{ cta.path }}"
+                        class="block text-gray-950 hover:text-gray-600 duration-200"
+                        >{{ cta.label }}</a
+                    >
+                </ng-template>
+            </li>
+        </ul>
+
+        <button class="md:hidden text-gray-950" (click)="toggleMenu()">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <div
+        [class.hidden]="!menuOpen"
+        class="absolute top-full left-0 w-full bg-gray-100 py-4 shadow-md md:hidden"
+    >
+        <ul class="flex flex-col items-center space-y-4">
+            <li *ngFor="let menu of getVisibleMenuItems()" class="text-center">
+                <a
+                    href="/{{ menu.path }}"
+                    class="block text-gray-950 hover:text-gray-600 duration-200"
+                    >{{ menu.label }}</a
+                >
+            </li>
+            <li *ngFor="let cta of getVisibleCTAItems()" class="text-center">
+                <ng-container *ngIf="cta.action; else linkMobile">
+                    <button
+                        (click)="cta.action()"
+                        class="block text-gray-950 hover:text-gray-600 duration-200"
+                    >
+                        {{ cta.label }}
+                    </button>
+                </ng-container>
+                <ng-template #linkMobile>
+                    <a
+                        href="{{ cta.path }}"
+                        class="block text-gray-950 hover:text-gray-600 duration-200"
+                        >{{ cta.label }}</a
+                    >
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+</nav>

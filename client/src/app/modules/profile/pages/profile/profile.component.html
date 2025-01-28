@@ -1,0 +1,18 @@
+<div class="flex flex-col items-center justify-center h-screen space-y-6">
+    <h1 class="text-2xl font-bold">Profile</h1>
+
+    <div *ngIf="profileData; else loading" class="text-left">
+        <p><strong>ID:</strong> {{ profileData.id }}</p>
+        <p><strong>Email:</strong> {{ profileData.email }}</p>
+        <p><strong>Nickname:</strong> {{ profileData.nickname }}</p>
+        <p><strong>Sent messages:</strong> {{ profileData.sentMessages }}</p>
+        <p>
+            <strong>Created At:</strong>
+            {{ profileData.createdAt }}
+        </p>
+    </div>
+
+    <ng-template #loading>
+        <p>Loading profile data...</p>
+    </ng-template>
+</div>

@@ -18,17 +18,17 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private final String[] ALLOWED_PATHS = {
-            "/api/**",      // TODO: api/auth/**
-            "/h2-console/**",
-            "/ws/**"
+    private final String[] allowedPaths = {
+        "/api/auth/**",
+        "/h2-console/**",
+        "/ws/**"
     };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(ALLOWED_PATHS).permitAll()
+                        .requestMatchers(allowedPaths).permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

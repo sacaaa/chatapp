@@ -28,6 +28,9 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+		<checkstyle-config-dir>checkstyle</checkstyle-config-dir>
+		<checkstyle-maven-plugin.version>3.3.0</checkstyle-maven-plugin.version>
+		<requirements.fail-build-on-checkstyle-error>false</requirements.fail-build-on-checkstyle-error>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -124,6 +127,27 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle-maven-plugin.version}</version>
+				<configuration>
+					<configLocation>${checkstyle-config-dir}/checkstyle.xml</configLocation>
+					<consoleOutput>true</consoleOutput>
+					<failOnViolation>${requirements.fail-build-on-checkstyle-error}</failOnViolation>
+					<violationSeverity>warning</violationSeverity>
+					<linkXRef>false</linkXRef>
+				</configuration>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

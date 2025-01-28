@@ -1,0 +1,74 @@
+<div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center space-y-6 w-full max-w-xs">
+        <h1 class="text-2xl font-bold">Login</h1>
+        <form
+            (submit)="onLogin($event)"
+            [formGroup]="loginForm"
+            class="flex flex-col space-y-4 w-full"
+        >
+            <div class="flex flex-col">
+                <input
+                    type="email"
+                    formControlName="emailOrNickname"
+                    placeholder="Email or nickname"
+                    class="p-2 border border-gray-300 rounded"
+                />
+                <span
+                    *ngIf="formSubmitted && loginForm.get('email')?.invalid"
+                    class="text-red-500 text-sm"
+                >
+                    <span *ngIf="loginForm.get('email')?.errors?.['required']"
+                        >Email is required.</span
+                    >
+                    <span *ngIf="loginForm.get('email')?.errors?.['email']"
+                        >Enter a valid email address.</span
+                    >
+                </span>
+            </div>
+
+            <div class="flex flex-col">
+                <input
+                    type="password"
+                    formControlName="password"
+                    placeholder="Password"
+                    class="p-2 border border-gray-300 rounded"
+                />
+                <span
+                    *ngIf="formSubmitted && loginForm.get('password')?.invalid"
+                    class="text-red-500 text-sm"
+                >
+                    <span
+                        *ngIf="loginForm.get('password')?.errors?.['required']"
+                        >Password is required.</span
+                    >
+                    <span
+                        *ngIf="loginForm.get('password')?.errors?.['minlength']"
+                        >Password must be at least 6 characters.</span
+                    >
+                </span>
+            </div>
+
+            <div class="flex items-center">
+                <input
+                    type="checkbox"
+                    id="rememberMe"
+                    formControlName="rememberMe"
+                    class="mr-2"
+                />
+                <label for="rememberMe" class="text-sm">Remember me</label>
+            </div>
+
+            <button
+                type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Login
+            </button>
+
+            <p class="text-sm text-center">
+                Don't have an account?
+                <a href="/register" class="text-blue-500">Register</a>
+            </p>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center space-y-6 w-full max-w-xs">
+      <h1 class="text-2xl font-bold">Register</h1>
+  
+      <div class="flex justify-center space-x-2 w-full">
+        <div
+          *ngFor="let id of [1, 2, 3, 4, 5]"
+          (click)="selectedAvatarId = id; registerForm.get('avatarId')?.setValue(id)"
+          [class.border-blue-500]="selectedAvatarId === id"
+          class="flex-1 max-w-[18%] aspect-square border-2 rounded-full cursor-pointer overflow-hidden hover:shadow-lg"
+        >
+          <img
+            [src]="'assets/images/avatars/' + id + '.webp'"
+            alt="Avatar {{ id }}"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+  
+      <form
+        (submit)="onRegister($event)"
+        [formGroup]="registerForm"
+        class="flex flex-col space-y-4 w-full"
+      >
+        <div class="flex flex-col">
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="Email"
+            class="p-2 border border-gray-300 rounded"
+          />
+          <span
+            *ngIf="formSubmitted && registerForm.get('email')?.invalid"
+            class="text-red-500 text-sm"
+          >
+            <span
+              *ngIf="registerForm.get('email')?.errors?.['required']"
+              >Email is required.</span
+            >
+            <span *ngIf="registerForm.get('email')?.errors?.['email']"
+              >Enter a valid email address.</span
+            >
+          </span>
+        </div>
+  
+        <div class="flex flex-col">
+          <input
+            type="text"
+            formControlName="nickname"
+            placeholder="Nickname"
+            class="p-2 border border-gray-300 rounded"
+          />
+          <span
+            *ngIf="formSubmitted && registerForm.get('nickname')?.invalid"
+            class="text-red-500 text-sm"
+          >
+            Nickname is required.
+          </span>
+        </div>
+  
+        <div class="flex flex-col">
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+            class="p-2 border border-gray-300 rounded"
+          />
+          <span
+            *ngIf="formSubmitted && registerForm.get('password')?.invalid"
+            class="text-red-500 text-sm"
+          >
+            <span
+              *ngIf="registerForm.get('password')?.errors?.['required']"
+              >Password is required.</span
+            >
+            <span
+              *ngIf="registerForm.get('password')?.errors?.['minlength']"
+              >Password must be at least 6 characters.</span
+            >
+          </span>
+        </div>
+  
+        <div class="flex flex-col">
+          <input
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+            class="p-2 border border-gray-300 rounded"
+          />
+          <span
+            *ngIf="
+              formSubmitted &&
+              registerForm.get('confirmPassword')?.errors?.['required']
+            "
+            class="text-red-500 text-sm"
+          >
+            Confirm password is required.
+          </span>
+          <span
+            *ngIf="
+              formSubmitted &&
+              !registerForm.get('confirmPassword')?.errors?.['required'] &&
+              registerForm.errors?.['passwordMismatch']
+            "
+            class="text-red-500 text-sm"
+          >
+            Passwords must match.
+          </span>
+        </div>
+  
+        <div class="flex flex-col">
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="termsAndConditions"
+              formControlName="termsAndConditions"
+              class="mr-2"
+            />
+            <label for="termsAndConditions" class="text-sm">
+              I agree to the
+              <a href="/terms-and-conditions" class="text-blue-500"
+                >terms and conditions</a
+              >
+            </label>
+          </div>
+          <span
+            *ngIf="
+              formSubmitted &&
+              registerForm.get('termsAndConditions')?.invalid
+            "
+            class="text-red-500 text-sm"
+          >
+            You must agree to the terms and conditions.
+          </span>
+        </div>
+  
+        <button
+          type="submit"
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Register
+        </button>
+  
+        <p class="text-sm text-center">
+          Already have an account?
+          <a href="/login" class="text-blue-500">Login</a>
+        </p>
+      </form>
+    </div>
+</div>
+  

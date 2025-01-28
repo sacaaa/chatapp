@@ -29,6 +29,8 @@ export class ChatService {
     try {
       const topic = `/topic/chatroom/${chatRoomId}`;
       await this.webSocketService.subscribe(topic, (message: ReceivedMessage) => {
+        message.createdAt = message.createdAt.replace('T', ' ').substring(0, 19);
+        console.log('Received message:', message);
         this.addMessage(message);
       });
       console.log(`Joined chat room: ${chatRoomId}`);
@@ -62,6 +64,11 @@ export class ChatService {
       const url = `${this.apiUrl}/message/receive/${chatRoomId}`;
       const receivedMessages = await lastValueFrom(this.http.get<ReceivedMessage[]>(url));
 
+      receivedMessages.map((message) => {
+        message.createdAt = message.createdAt.replace('T', ' ').substring(0, 19);
+        return message;
+      });
+
       this.messages = receivedMessages;
       this.messagesSubject.next(this.messages);
 
@@ -80,6 +87,18 @@ export class ChatService {
     } catch (error) {
       console.error('Failed to fetch chat rooms:', error);
       return [];
+    }
+  }
+
+  async getChatRoomById(chatRoomId: number): Promise<ChatRoom | null> {
+    try {
+      const chatRooms = await this.getChatRooms();
+      const chatRoom = chatRooms.find((room) => room.id === chatRoomId) || null;
+      console.log('Fetched chat room:', chatRoom);
+      return chatRoom;
+    } catch (error) {
+      console.error('Failed to fetch chat room:', error);
+      return null;
     }
   }
 

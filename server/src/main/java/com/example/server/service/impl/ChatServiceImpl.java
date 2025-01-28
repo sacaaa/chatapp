@@ -9,7 +9,6 @@ import com.example.server.repository.ChatRoomRepository;
 import com.example.server.repository.MessageRepository;
 import com.example.server.repository.UserRepository;
 import com.example.server.service.ChatService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +26,6 @@ public class ChatServiceImpl implements ChatService {
 
     private final MessageRepository messageRepository;
 
-    private final ObjectMapper objectMapper;
-
     @Override
     public void sendMessageToChatRoom(MessageDto messageDto) {
         var chatRoom = chatRoomRepository.findById(messageDto.getChatRoomId())
@@ -45,27 +42,14 @@ public class ChatServiceImpl implements ChatService {
 
         var loadedMessage = messageRepository.findById(message.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Message not found"));
-        var receivedMessageDto = new ReceivedMessageDto();
-        receivedMessageDto.setId(loadedMessage.getId());
-        receivedMessageDto.setContent(loadedMessage.getContent());
-        receivedMessageDto.setChatRoomId(loadedMessage.getChatRoom().getId());
-        receivedMessageDto.setSenderNickname(loadedMessage.getSender().getNickname());
-        receivedMessageDto.setCreatedAt(loadedMessage.getCreatedAt());
+        var receivedMessageDto = convertToReceivedMessageDto(loadedMessage);
         kafkaProducer.sendMessage("chatroom_" + chatRoom.getId(), receivedMessageDto);
     }
 
     @Override
     public List<ReceivedMessageDto> receiveMessageFromChatRoom(Long chatRoomId) {
         return messageRepository.findAllByChatRoomId(chatRoomId).stream()
-                .map(message -> {
-                    var receivedMessageDto = new ReceivedMessageDto();
-                    receivedMessageDto.setId(message.getId());
-                    receivedMessageDto.setContent(message.getContent());
-                    receivedMessageDto.setChatRoomId(message.getChatRoom().getId());
-                    receivedMessageDto.setSenderNickname(message.getSender().getNickname());
-                    receivedMessageDto.setCreatedAt(message.getCreatedAt());
-                    return receivedMessageDto;
-                })
+                .map(this::convertToReceivedMessageDto)
                 .toList();
     }
 
@@ -76,9 +60,22 @@ public class ChatServiceImpl implements ChatService {
                     var chatRoomDto = new ChatRoomDto();
                     chatRoomDto.setId(chatRoom.getId());
                     chatRoomDto.setName(chatRoom.getName());
+                    chatRoomDto.setDescription(chatRoom.getDescription());
                     return chatRoomDto;
                 })
                 .toList();
+    }
+
+    private ReceivedMessageDto convertToReceivedMessageDto(Message message) {
+        var receivedMessageDto = new ReceivedMessageDto();
+        receivedMessageDto.setId(message.getId());
+        receivedMessageDto.setContent(message.getContent());
+        receivedMessageDto.setChatRoomId(message.getChatRoom().getId());
+        receivedMessageDto.setSenderId(message.getSender().getId());
+        receivedMessageDto.setSenderNickname(message.getSender().getNickname());
+        receivedMessageDto.setSenderAvatarId(message.getSender().getAvatarId());
+        receivedMessageDto.setCreatedAt(message.getCreatedAt());
+        return receivedMessageDto;
     }
 
 }

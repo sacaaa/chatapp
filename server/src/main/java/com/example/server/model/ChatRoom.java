@@ -1,5 +1,6 @@
 package com.example.server.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,11 @@ public class ChatRoom {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("messages")
     private List<Message> messages;
 
     @Column(

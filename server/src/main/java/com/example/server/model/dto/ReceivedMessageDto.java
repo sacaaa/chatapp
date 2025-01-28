@@ -14,7 +14,9 @@ public class ReceivedMessageDto {
     private Long id;
     private String content;
     private Long chatRoomId;
+    private Long senderId;
     private String senderNickname;
+    private int senderAvatarId;
     private LocalDateTime createdAt;
 
 }

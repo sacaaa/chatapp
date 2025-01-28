@@ -1,5 +1,6 @@
 package com.example.server.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,10 +25,12 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "chat_room_id", nullable = false)
+    @JsonBackReference("messages")
     private ChatRoom chatRoom;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
+    @JsonBackReference("sender")
     private User sender;
 
     @Column(
